@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react'
 import RGBGrayScaleTest from './RGBGrayScaleTest';
 import { Box, makeStyles, TextField, MenuItem } from '@material-ui/core';
-import ETFInvertTest from './ETFInvertTest';
 import RGBInvertTest from './RGBInvertTest';
 import FibonacciTest from './FibonacciTest';
+import StockholmInvertTest from './StockholmInvertTest';
 
 
 const ClientSideTests = () => {
@@ -15,8 +15,8 @@ const ClientSideTests = () => {
                 return (<RGBGrayScaleTest />);
             case 'RGBInvert':
                 return (<RGBInvertTest />);
-            case 'ETFInvert':
-                return (<ETFInvertTest />);
+            case 'StockholmInvertTest':
+                return (<StockholmInvertTest />);
             case 'FibonacciTest':
                 return (<FibonacciTest />);
             default:
@@ -37,7 +37,7 @@ const ClientSideTests = () => {
                 >
                     <MenuItem value={"RGBGrayScale"}>RGB Grayscale</MenuItem>
                     <MenuItem value={"RGBInvert"}>RGB Invert</MenuItem>
-                    <MenuItem value={"ETFInvert"}>ETF Invert</MenuItem>
+                    <MenuItem value={"StockholmInvertTest"}>Stockholm Invert</MenuItem>
                     <MenuItem value={"FibonacciTest"}>Fibonacci</MenuItem>
                 </TextField>
             </Box>

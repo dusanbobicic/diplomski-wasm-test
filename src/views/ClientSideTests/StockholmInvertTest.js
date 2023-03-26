@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import testImage1 from '../../shared/assets/etf.jpg';
+import testImage1 from '../../shared/assets/stockholm.jpg';
 import Jimp from 'jimp';
 import { Box, Button, Grid } from '@material-ui/core';
 import TestResultDataInfo from '../../components/TestResultDataInfo';
 import { getImageData, writeImageDataToCanvas } from '../../utils/image';
 import { invertImage } from '../../utils/wasm/invert_loader';
 
-const ETFInvertTest = () => {
+const StockholmInvertTest = () => {
     const [imageData, setImageData] = useState(testImage1);
     const [imageDataWasm, setImageDataWasm] = useState(testImage1);
-    const [imageJSTestData, setImageJSTestData] = useState({ testName: 'Invert ETF', timeStart: 'N/A', timeEnd: 'N/A' });
-    const [imageWASMTestData, setImageWASMTestData] = useState({ testName: 'Invert ETF', timeStart: 'N/A', timeEnd: 'N/A' });
+    const [imageJSTestData, setImageJSTestData] = useState({ testName: 'Stockholm Invert', timeStart: 'N/A', timeEnd: 'N/A' });
+    const [imageWASMTestData, setImageWASMTestData] = useState({ testName: 'Stockholm Invert', timeStart: 'N/A', timeEnd: 'N/A' });
 
     useEffect(() => {
 
@@ -22,7 +22,7 @@ const ETFInvertTest = () => {
         }
 
         imgEffect();
-        return ()=>{setImageData(null); setImageDataWasm(null);}
+        return () => { setImageData(null); setImageDataWasm(null); }
     }, []);
 
     const runTestJS = useCallback(async () => {
@@ -32,7 +32,7 @@ const ETFInvertTest = () => {
         await loadImage.invert();
         const time_end_grayscale = performance.now();
 
-        setImageJSTestData({ testName: 'Invert ETF', timeStart: time_start_grayscale, timeEnd: time_end_grayscale });
+        setImageJSTestData({ testName: 'Invert Stockholm', timeStart: time_start_grayscale, timeEnd: time_end_grayscale });
         const mime = await loadImage.getBase64Async(Jimp.MIME_JPEG);
         setImageData(mime);
     }, [setImageData]);
@@ -46,12 +46,12 @@ const ETFInvertTest = () => {
         const data = await getImageData({ url: imageDataWasm });
 
         const time_start_grayscale = performance.now()
-        const wasmData=await invertImage(data.data);
+        const wasmData = await invertImage(data.data);
         const time_end_grayscale = performance.now();
 
         const canvas = document.createElement('canvas');
         setImageDataWasm(writeImageDataToCanvas(canvas, wasmData, data.width, data.height).toDataURL());
-        setImageWASMTestData({ testName: 'Invert ETF', timeStart: time_start_grayscale, timeEnd: time_end_grayscale });
+        setImageWASMTestData({ testName: 'Invert Stockholm', timeStart: time_start_grayscale, timeEnd: time_end_grayscale });
     })
 
     const resetTestWasm = useCallback(async () => {
@@ -70,13 +70,13 @@ const ETFInvertTest = () => {
                     </Box>
                     <Box>
                         Results:
-                    <TestResultDataInfo resultInfo={imageJSTestData} />
+                        <TestResultDataInfo resultInfo={imageJSTestData} />
                     </Box>
                 </Grid>
                 <Grid item>
                     <img src={imageDataWasm} width={342} height={256} />
                     <Box>
-                        
+
                     </Box>
                     <Box>
                         <Button onClick={runTestWasm}>Run WASM Test</Button>
@@ -84,7 +84,7 @@ const ETFInvertTest = () => {
                     </Box>
                     <Box>
                         Results:
-                    <TestResultDataInfo resultInfo={imageWASMTestData} />
+                        <TestResultDataInfo resultInfo={imageWASMTestData} />
                     </Box>
                 </Grid>
             </Grid>
@@ -92,4 +92,4 @@ const ETFInvertTest = () => {
     )
 }
 
-export default ETFInvertTest;
+export default StockholmInvertTest;
